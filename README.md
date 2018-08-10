@@ -41,7 +41,7 @@ public class SettingsDemoMenu
 ## Want custom inspector control?
 All CustomSettings will have a default inspector that enables saving & undo functionality
 
-If you'd like to create your own, [CustomSettingsEditor.cs](/Assets/CustomProjectSettings/Scripts/Editor/CustomSettingsEditor.cs) has some good commentation.
+If you'd like to create your own, [CustomSettingsEditor.cs](/Assets/CustomProjectSettings/Scripts/Editor/CustomSettingsEditor.cs) has some good documentation.
 
 You mostly just need to call `MySettingsReference.Save()` when you've made changes.
 
