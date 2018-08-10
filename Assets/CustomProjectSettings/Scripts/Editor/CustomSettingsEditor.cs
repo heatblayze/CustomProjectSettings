@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections;
 using CustomProjectSettings.Internal;
+using UnityEditor.SceneManagement;
 
 namespace CustomProjectSettings
 {
@@ -17,12 +18,14 @@ namespace CustomProjectSettings
 
             //Hook into the undo performed function
             Undo.undoRedoPerformed += OnUndo;
+            ProjectSave.onSave += OnSave;
         }
 
         private void OnDisable()
         {
             //Remove the hook when not visible. Unity handles everything, don't worry!
             Undo.undoRedoPerformed -= OnUndo;
+            ProjectSave.onSave -= OnSave;
         }
 
         public override void OnInspectorGUI()
@@ -34,7 +37,7 @@ namespace CustomProjectSettings
                 if (scope.changed)
                 {
                     //Save the file on change
-                    myTarg.Save();
+                    //myTarg.Save();
                 }
             }
         }
@@ -43,7 +46,24 @@ namespace CustomProjectSettings
         {
             //When Unity performs an Undo, it automatically reverts the changes.
             //So all we need to do is save the file again
+            //myTarg.Save();
+        }
+
+        void OnSave()
+        {
             myTarg.Save();
+        }
+    }
+
+    public class ProjectSave : UnityEditor.AssetModificationProcessor
+    {
+        public static event System.Action onSave;
+
+        public static string[] OnWillSaveAssets(string[] paths)
+        {
+            if (onSave != null)
+                onSave.Invoke();
+            return paths;
         }
     }
 }
