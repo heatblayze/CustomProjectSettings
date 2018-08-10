@@ -35,9 +35,11 @@ namespace CustomProjectSettings
 
         void Copy(string sourceDir, string targetDir)
         {
-            foreach (var file in Directory.GetFiles(sourceDir))
+            var files = Directory.GetFiles(sourceDir);
+            foreach (var file in files)
             {
-                if (Path.GetExtension(file) != "json")
+                string ext = Path.GetExtension(file);
+                if (ext != ".json")
                     continue;
                 File.Copy(file, Path.Combine(targetDir, Path.GetFileName(file)));
                 AssetDatabase.ImportAsset("Assets/Resources/CustomSettings/" + Path.GetFileName(file), ImportAssetOptions.ForceUpdate);
