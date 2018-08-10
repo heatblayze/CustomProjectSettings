@@ -11,7 +11,6 @@ These files are automatically copied to the folder "Resources/CustomSettings" at
 Here's a sample for creating a settings file class:
 
 ```c#
-using UnityEngine;
 using CustomProjectSettings;
 
 public class ExampleSetting : CustomSettings<ExampleSetting>
