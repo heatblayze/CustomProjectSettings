@@ -12,6 +12,9 @@ namespace CustomProjectSettings
 
         public void OnPreprocessBuild(BuildReport report)
         {
+            //Force save the settings before build
+            ProjectSave.OnWillSaveAssets(null);
+
             string rootFolder = Directory.GetParent(Application.dataPath) + "/CustomProjectSettings/";
             string targetFolder = Application.dataPath + "/Resources/CustomSettings/";
 
