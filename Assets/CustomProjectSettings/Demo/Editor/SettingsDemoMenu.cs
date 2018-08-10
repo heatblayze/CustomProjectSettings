@@ -3,9 +3,9 @@ using UnityEditor;
 
 public class SettingsDemoMenu
 {
-    [MenuItem("Edit/Custom Project Settings/Test Settings")]
+    [MenuItem("Edit/Custom Project Settings/Example Settings")]
     public static void ShowInspector()
     {
-        TestSetting.Select();
+        ExampleSetting.Select();
     }
 }
