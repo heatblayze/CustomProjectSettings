@@ -52,7 +52,7 @@ namespace CustomProjectSettings
         try
         {
             //Load the file as a text asset
-            var txtAsset = Resources.Load<TextAsset>("Settings/" + fileName);
+            var txtAsset = Resources.Load<TextAsset>("CustomSettings/" + fileName);
             
             settings = (T)ScriptableObject.CreateInstance(typeof(T));
             //Attempt to read the file and overwrite the contents of the ScriptableObject

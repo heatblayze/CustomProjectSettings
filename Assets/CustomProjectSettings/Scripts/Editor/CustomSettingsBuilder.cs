@@ -13,7 +13,7 @@ namespace CustomProjectSettings
         public void OnPreprocessBuild(BuildReport report)
         {
             string rootFolder = Directory.GetParent(Application.dataPath) + "/CustomProjectSettings/";
-            string targetFolder = Application.dataPath + "/Resources/Settings/";
+            string targetFolder = Application.dataPath + "/Resources/CustomSettings/";
 
             //NO BUENO EXISTING FOLDER
             if (Directory.Exists(targetFolder))
@@ -28,7 +28,7 @@ namespace CustomProjectSettings
 
         public void OnPostprocessBuild(BuildReport report)
         {
-            string folder = Application.dataPath + "/Resources/Settings/";
+            string folder = Application.dataPath + "/Resources/CustomSettings/";
             //just straight up delete that fam
             Directory.Delete(folder, true);
         }
@@ -40,7 +40,7 @@ namespace CustomProjectSettings
                 if (Path.GetExtension(file) != "json")
                     continue;
                 File.Copy(file, Path.Combine(targetDir, Path.GetFileName(file)));
-                AssetDatabase.ImportAsset("Assets/Resources/Settings/" + Path.GetFileName(file), ImportAssetOptions.ForceUpdate);
+                AssetDatabase.ImportAsset("Assets/Resources/CustomSettings/" + Path.GetFileName(file), ImportAssetOptions.ForceUpdate);
             }
         }
     }
