@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -28,6 +28,8 @@ namespace CustomProjectSettings
                     settings = (T)ScriptableObject.CreateInstance(typeof(T));
                     //Attempt to read the file and overwrite the contents of the ScriptableObject
                     JsonUtility.FromJsonOverwrite(File.ReadAllText(folder + fileName), settings);
+
+                    ProjectSave.onSave += settings.Save;
                     return;
                 }
                 catch (Exception e)
@@ -44,6 +46,8 @@ namespace CustomProjectSettings
             settings = (T)ScriptableObject.CreateInstance(typeof(T));
             //Initialise the object
             settings.Initialise();
+
+            ProjectSave.onSave += settings.Save;
 
             //Weeeeeeeeee
             return;
@@ -99,4 +103,18 @@ namespace CustomProjectSettings
 #endif
         }
     }
+
+#if UNITY_EDITOR
+    public class ProjectSave : UnityEditor.AssetModificationProcessor
+    {
+        public static event Action onSave;
+
+        public static string[] OnWillSaveAssets(string[] paths)
+        {
+            if (onSave != null)
+                onSave.Invoke();
+            return paths;
+        }
+    }
+#endif
 }
