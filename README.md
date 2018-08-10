@@ -3,9 +3,9 @@ Custom Project Settings files for Unity
 
 I wanted some custom settings for my Unity project, so I made some simple functionality to allow for this.
 
-Essentially this allows you to create a ScriptableObject that is saved outside of the "Assets" folder in your project, that can then be edited in the Inspector in the Unity Editor.
+Essentially this allows you to create a ScriptableObject that is saved outside of the _Assets_ folder in your project, that can then be edited in the Inspector in the Unity Editor.
 
-These files are automatically copied to the folder "Resources/CustomSettings" at build time and removed on completion of the build.
+These files are automatically copied to the folder _Resources/CustomSettings_ at build time and removed on completion of the build.
 
 ## How to create your own settings file
 Here's a sample for creating a settings file class:
@@ -24,7 +24,7 @@ public class ExampleSetting : CustomSettings<ExampleSetting>
 
 ## How to access the settings
 To access the settings file, you just need to create a method hooked up to a MenuItem, then call Select() on the class:
-**Ensure to place this script inside and "Editor/" folder, or use #if UNITY_EDITOR**
+**Ensure to place this script inside and _Editor/_ folder, or use _#if UNITY_EDITOR_**
 ```c#
 using UnityEditor;
 
