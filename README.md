@@ -27,7 +27,6 @@ public class ExampleSetting : CustomSettings<ExampleSetting>
 To access the settings file, you just need to create a method hooked up to a MenuItem, then call Select() on the class:
 **Ensure to place this script inside and "Editor/" folder, or use #if UNITY_EDITOR**
 ```c#
-using UnityEngine;
 using UnityEditor;
 
 public class SettingsDemoMenu
