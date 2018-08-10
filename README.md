@@ -23,7 +23,7 @@ public class ExampleSetting : CustomSettings<ExampleSetting>
 ```
 
 ## How to access the settings
-To access the settings file, you just need to create a method hooked up to a MenuItem, then call Select() on the class:
+To access the settings file, you just need to create a method hooked up to a MenuItem, then call `MySettings.Select()` on the class:
 **Ensure to place this script inside and _Editor/_ folder, or use _#if UNITY_EDITOR_**
 ```c#
 using UnityEditor;
@@ -41,4 +41,8 @@ public class SettingsDemoMenu
 ## Want custom inspector control?
 All CustomSettings will have a default inspector that enables saving & undo functionality
 
-If you'd like to create your own, just read [CustomSettingsEditor.cs](/Assets/CustomProjectSettings/Scripts/Editor/CustomSettingsEditor.cs)
+If you'd like to create your own, [CustomSettingsEditor.cs](/Assets/CustomProjectSettings/Scripts/Editor/CustomSettingsEditor.cs) has some good commentation.
+
+You mostly just need to call `MySettingsReference.Save()` when you've made changes.
+
+You can replicate my undo functionality by hooking into `Undo.undoRedoPerformed` event, then calling `MySettingsReference.Save()` in your callback
