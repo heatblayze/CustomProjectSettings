@@ -1,9 +1,13 @@
 # Custom Project Settings
 Enables custom scriptable settings for the Unity Editor, accessible in builds
 
-Essentially this allows you to create a `ScriptableObject` that is saved outside of the _Assets_ folder in your project, that can then be edited in the Inspector in the Unity Editor.
+## What does this do?
+This small set of code allows you to create a `ScriptableObject` that is saved outside of the _Assets_ folder in your project, that can then be edited in the Inspector in the Unity Editor.
 
-These files are automatically copied to the folder _Resources/CustomSettings_ at build time and removed on completion of the build.
+## Where are the files stored?
+The settings files are stored as .json files, in a folder called _CustomSettings_, a sibling folder of _Assets_ and _ProjectSettings_
+
+These settings files are automatically copied to the folder _Resources/CustomSettings_ at build time and removed on completion of the build.
 
 ## How to create your own settings file
 Here's a sample for creating a settings file class:
