@@ -26,7 +26,7 @@ namespace CustomProjectSettings.Internal
 
 namespace CustomProjectSettings
 {
-    public abstract class CustomSettings<T> : Internal.CustomSettingsBase where T : Internal.CustomSettingsBase
+    public abstract class CustomSettings<T> : Internal.CustomSettingsBase, ISerializationCallbackReceiver where T : Internal.CustomSettingsBase
     {
         public static T Instance
         {
@@ -45,6 +45,15 @@ namespace CustomProjectSettings
         public static void Select()
         {
             UnityEditor.Selection.activeObject = Instance;
+        }
+
+        public void OnBeforeSerialize()
+        {
+        }
+
+        public void OnAfterDeserialize()
+        {
+            _instance = this as T;
         }
 #endif
     }
