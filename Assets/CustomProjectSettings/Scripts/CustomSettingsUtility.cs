@@ -11,6 +11,13 @@ namespace CustomProjectSettings
     {
         public static void GetInstance<T>(ref T settings) where T : CustomSettingsBase
         {
+            if (settings != null)
+            {
+                if (!ProjectSave.HasReference(settings.Save))
+                    ProjectSave.onSave += settings.Save;
+                return;
+            }
+
             string fileName = typeof(T).ToString();
 #if UNITY_EDITOR
             fileName = fileName + ".json";
@@ -29,7 +36,8 @@ namespace CustomProjectSettings
                     //Attempt to read the file and overwrite the contents of the ScriptableObject
                     JsonUtility.FromJsonOverwrite(File.ReadAllText(folder + fileName), settings);
 
-                    ProjectSave.onSave += settings.Save;
+                    if (!ProjectSave.HasReference(settings.Save))
+                        ProjectSave.onSave += settings.Save;
                     return;
                 }
                 catch (Exception e)
@@ -47,7 +55,8 @@ namespace CustomProjectSettings
             //Initialise the object
             settings.Initialise();
 
-            ProjectSave.onSave += settings.Save;
+            if (!ProjectSave.HasReference(settings.Save))
+                ProjectSave.onSave += settings.Save;
 
             //Weeeeeeeeee
             return;
@@ -114,6 +123,20 @@ namespace CustomProjectSettings
             if (onSave != null)
                 onSave.Invoke();
             return paths;
+        }
+
+        public static bool HasReference(Action action)
+        {
+            if (onSave == null)
+                return false;
+
+            var list = onSave.GetInvocationList();
+            foreach (var item in list)
+            {
+                if (item.Target == action.Target && item.Method == action.Method)
+                    return true;
+            }
+            return false;
         }
     }
 #endif

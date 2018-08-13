@@ -54,6 +54,7 @@ namespace CustomProjectSettings
         public void OnAfterDeserialize()
         {
             _instance = this as T;
+            CustomSettingsUtility.GetInstance(ref _instance);
         }
 #endif
     }
