@@ -11,12 +11,14 @@ namespace CustomProjectSettings
     {
         public static void GetInstance<T>(ref T settings) where T : CustomSettingsBase
         {
+#if UNITY_EDITOR
             if (settings != null)
             {
                 if (!ProjectSave.HasReference(settings.Save))
                     ProjectSave.onSave += settings.Save;
                 return;
             }
+#endif
 
             string fileName = typeof(T).ToString();
 #if UNITY_EDITOR

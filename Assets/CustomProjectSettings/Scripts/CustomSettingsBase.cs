@@ -46,6 +46,7 @@ namespace CustomProjectSettings
         {
             UnityEditor.Selection.activeObject = Instance;
         }
+#endif
 
         public void OnBeforeSerialize()
         {
@@ -53,9 +54,10 @@ namespace CustomProjectSettings
 
         public void OnAfterDeserialize()
         {
+#if UNITY_EDITOR
             _instance = this as T;
             CustomSettingsUtility.GetInstance(ref _instance);
-        }
 #endif
+        }
     }
 }
