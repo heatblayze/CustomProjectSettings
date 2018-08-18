@@ -1,5 +1,5 @@
 # Custom Project Settings
-Enables custom scriptable settings for the Unity Editor, readable in builds
+Enables custom, global, scriptable settings for the Unity Editor, readable in builds
 
 ## What does this do?
 This small set of code allows you to create a `ScriptableObject` that is saved outside of the _Assets_ folder in your project, that can then be edited in the Inspector in the Unity Editor.
