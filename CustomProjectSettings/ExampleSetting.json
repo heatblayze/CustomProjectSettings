@@ -1,8 +1,0 @@
-{
-    "TEST": true,
-    "SampleTextInput": "Hello world!",
-    "SampleClass": {
-        "name": "HadToDoItToEm",
-        "someValue": 33
-    }
-}
