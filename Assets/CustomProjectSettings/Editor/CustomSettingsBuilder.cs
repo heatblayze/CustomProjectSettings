@@ -22,6 +22,10 @@ namespace CustomProjectSettings
             if (Directory.Exists(targetFolder))
                 Directory.Delete(targetFolder, true);
 
+            //Ensure the resources directory exists !!!
+            if (!Directory.Exists(Application.dataPath + "/Resources"))
+                Directory.CreateDirectory(Application.dataPath + "/Resources");
+
             Directory.CreateDirectory(targetFolder);
 
             //Try to copy all files from target directory
@@ -36,6 +40,9 @@ namespace CustomProjectSettings
             Directory.Delete(folder, true);
         }
 
+        /// <summary>
+        /// Copies all .json files in <paramref name="sourceDir"/> to <paramref name="targetDir"/>
+        /// </summary>
         void Copy(string sourceDir, string targetDir)
         {
             var files = Directory.GetFiles(sourceDir);
