@@ -41,4 +41,4 @@ public class SettingsDemoMenu
 ```
 
 ## Want custom inspector control?
-You can! Inspectors are not overridden in my code.
+You have it! Inspectors are not overridden in my code.
