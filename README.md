@@ -9,6 +9,18 @@ The settings files are stored as .json files, in a folder called _CustomSettings
 
 These settings files are automatically copied to the folder _Resources/CustomSettings_ at build time and removed on completion of the build.
 
+## Install
+Either download the latest .unitypackage via the Releases tab OR
+Add the package to your dependencies in the manifest.json (the #1.3.0 being the version)
+```json
+{
+  "dependencies": {
+    "com.heatblayze.customprojectsettings": "https://github.com/heatblayze/CustomProjectSettings.git#1.3.0",
+    ...
+  },
+}
+```
+
 ## How to create your own settings file
 Here's a sample for creating a settings file class:
 
