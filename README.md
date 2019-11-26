@@ -12,7 +12,7 @@ These settings files are automatically copied to the folder _Resources/CustomSet
 ## Install
 Either download the latest .unitypackage via the Releases tab OR
 Add the package to your dependencies in the manifest.json (the #1.3.0 being the version)
-```json
+```
 {
   "dependencies": {
     "com.heatblayze.customprojectsettings": "https://github.com/heatblayze/CustomProjectSettings.git#1.3.0",
