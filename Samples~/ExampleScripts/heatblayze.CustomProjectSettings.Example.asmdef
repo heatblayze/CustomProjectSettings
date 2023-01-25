@@ -1,0 +1,16 @@
+{
+    "name": "heatblayze.CustomProjectSettings.Example",
+    "rootNamespace": "",
+    "references": [
+        "GUID:819a8c12e78073a42bd6a1c83422cb19"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

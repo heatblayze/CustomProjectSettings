@@ -1,3 +1,8 @@
+# NOTE: THIS PROJECT IS UNDERGOING REVIVAL
+**If you wish to use the current release version of this package, please ensure you specify the version number in your manifest.json file.**
+The information below is for the current 1.x version of the package. This will not be backwards compatible with version 2.0, which will be released soon™ (date at writing is 2023/01/26).
+This document will be updated to reflect these changes, but there will also be an example bundled with the package.
+
 # Custom Project Settings
 Enables custom, global, scriptable settings for the Unity Editor that are readable in builds
 
