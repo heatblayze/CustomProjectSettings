@@ -1,65 +1,103 @@
-# NOTE: THIS PROJECT IS UNDERGOING REVIVAL
-**If you wish to use the current release version of this package, please ensure you specify the version number when installing.**
-
-The information below is for the current 1.x version of the package. This will not be backwards compatible with version 2.0, which will be released soon™ (date at writing is 2023/01/26).
-
-This document will be updated to reflect these changes, and there will also be an example bundled with the package.
+# Custom Project Settings
+Enables custom, global, scriptable settings for the Unity Editor that are readable in builds.
 
 ---
 
-# Custom Project Settings
-Enables custom, global, scriptable settings for the Unity Editor that are readable in builds
-
 ## What does this do?
-This small set of code allows you to create a `ScriptableObject` that is saved outside of the _Assets_ folder in your project, that can then be edited in the Inspector in the Unity Editor.
-
-## Where are the files stored?
-The settings files are stored as .json files, in a folder called _CustomSettings_, a sibling folder of _Assets_ and _ProjectSettings_
-
-These settings files are automatically copied to the folder _Resources/CustomSettings_ at build time and removed on completion of the build.
+This small set of code allows you to create a [ScriptableObject](https://docs.unity3d.com/Manual/class-ScriptableObject.html) that is saved in the  _Assets/Resources/Settings_. folder of your project, which you can use to store global information about your project and retrieve it anywhere at runtime.
 
 ## Install
-Either download the latest .unitypackage via the Releases tab OR
-Add the package to your dependencies in the manifest.json (the #1.3.0 being the version)
+There are two methods for installing the package.
+
+**It is highly recommended that you specify a version to avoid pulling from the repo directly.**
+
+### 1. Via Unity Package Manager
+Open the Unity Package Manager, click the "+" button located at the top-left and select "Install via Git URL". Then paste the following code (replacing the version number as required):
+
+`https://github.com/heatblayze/CustomProjectSettings.git#2.0.2`
+
+### 2. Directly into the manifest file
+Open the package manifest file located at _Packages/manifest.json_ (starting from the project root directory, NOT the Assets folder).
+
+Add the following line at the top of your dependencies (replacing the version number as required):
+
+`"com.heatblayze.customprojectsettings": "https://github.com/heatblayze/CustomProjectSettings.git#2.0.2",`
+
+It should look something like this:
 ```
 {
   "dependencies": {
-    "com.heatblayze.customprojectsettings": "https://github.com/heatblayze/CustomProjectSettings.git#1.3.0",
+    "com.heatblayze.customprojectsettings": "https://github.com/heatblayze/CustomProjectSettings.git#2.0.2",
     ...
   },
 }
 ```
 
 ## How to create your own settings file
-Here's a sample for creating a settings file class:
+### Create the root settings class
+This is just a `ScriptableObject`, as such you should place it in a file that shares the same name as the class.
+```c#
+using UnityEngine;
+using CustomProjectSettings;
 
+public class ExampleSettingsRoot : CustomSettingsRoot
+{
+    public override string Title => "Example Settings";
+
+    public float Float => _float;
+    [SerializeField]
+    float _float = 1f;
+}
+```
+
+### Create the settings descriptor class
+This class can be in the same file as the root, or wherever you please. Simply inherit from `CustomSettingsRootDescriptor<T>`, specifying your `CustomSettingsRoot` class from above.
 ```c#
 using CustomProjectSettings;
 
-public class ExampleSetting : CustomSettings<ExampleSetting>
+public class ExampleSettingsDescriptor : CustomSettingsRootDescriptor<ExampleSettingsRoot>
 {
-    public bool DemoValue;
+    public override string Filename => "ExampleSettings";
+}
+```
 
-    public override void OnWillSave() { }
-    protected override void OnInitialise() { }
+### Creating child settings
+Simply inherit from `CustomSettingsChild<T>`, specifying the `CustomSettingsRoot` it is linked to.
+This is also a `ScriptableObject`, so it must be placed in a file that shares the name of the class.
+```c#
+using CustomProjectSettings;
+using UnityEngine;
+
+public class ExampleSettingsChildA : CustomSettingsChild<ExampleSettingsRoot>
+{
+    public override string Title => "Example Settings A";
+
+    public string String => _string;
+    [SerializeField]
+    string _string;
 }
 ```
 
 ## How to access the settings
-To access the settings file, you just need to create a method hooked up to a MenuItem, then call `MySettings.Select()` on the class:
-**Ensure to place this script inside an _Editor/_ folder, or use _#if UNITY_EDITOR_**
-```c#
-using UnityEditor;
+Simply call `CustomSettings.GetSettings<T>()` like shown below.
 
-public class SettingsDemoMenu
+```c#
+using UnityEngine;
+using CustomProjectSettings;
+
+public class ExampleSettingsLogger : MonoBehaviour
 {
-    [MenuItem("Edit/Custom Project Settings/Example Settings")]
-    public static void ShowInspector()
+    void Start()
     {
-        ExampleSetting.Select();
+        Debug.Log($"Example root float: {CustomSettings.GetSettings<ExampleSettingsRoot>().Float}");
+        Debug.Log($"Example child A string: {CustomSettings.GetSettings<ExampleSettingsChildA>().String}");
     }
 }
 ```
 
 ## Want custom inspector control?
-You have it! Inspectors are not overridden in my code.
+You have it!
+
+Inspectors use a default editor, simply to remove the "Script" field that shows on `ScriptableObject`s, but this will be overwritten if you specify an Editor for your settings class(es). If you wish to view the source of the default inspector, it can be found at _Editor/CustomSettingsEditor.cs_
+
+Custom `PropertyDrawer`s should also work as usual.
