@@ -57,7 +57,6 @@ namespace CustomProjectSettings.Editor
 
         public override void OnGUI(string searchContext)
         {
-            // Use IMGUI to display UI:
             ++EditorGUI.indentLevel;
             EditorGUILayout.Space();
 
@@ -65,7 +64,7 @@ namespace CustomProjectSettings.Editor
             EditorGUIUtility.labelWidth = 259;
 
             // TODO: Allow for custom editor types
-            UnityEditor.Editor.CreateCachedEditor(_customSettings, typeof(NoScriptEditor), ref _cachedEditor);
+            UnityEditor.Editor.CreateCachedEditor(_customSettings, null, ref _cachedEditor);
             _cachedEditor.OnInspectorGUI();
 
             EditorGUIUtility.labelWidth = w;

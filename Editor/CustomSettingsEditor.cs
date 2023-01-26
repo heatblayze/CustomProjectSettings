@@ -1,10 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEditor;
 
-public class NoScriptEditor : UnityEditor.Editor
+[CustomEditor(typeof(CustomProjectSettings.Internal.CustomSettingsFile), true)]
+public class CustomSettingsEditor : Editor
 {
     public override void OnInspectorGUI()
     {
