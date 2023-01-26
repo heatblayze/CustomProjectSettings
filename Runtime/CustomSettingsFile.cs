@@ -19,5 +19,5 @@ namespace CustomProjectSettings
         protected List<Internal.CustomSettingsFile> _children = new List<Internal.CustomSettingsFile>();
     }
 
-    public abstract class CustomSettingsFile<T> : Internal.CustomSettingsFile where T : CustomSettingsRoot { }
+    public abstract class CustomSettingsChild<T> : Internal.CustomSettingsFile where T : CustomSettingsRoot { }
 }

@@ -1,7 +1,7 @@
 using CustomProjectSettings;
 using UnityEngine;
 
-public class ExampleSettingsChildA : CustomSettingsFile<ExampleSettingsRoot>
+public class ExampleSettingsChildA : CustomSettingsChild<ExampleSettingsRoot>
 {
     public override string Title => "Example Settings A";
 
