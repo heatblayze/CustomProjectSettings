@@ -12,6 +12,16 @@ namespace CustomProjectSettings.Editor
 {
     public static class CustomSettingsGenerator
     {
+        [InitializeOnLoadMethod]
+        internal static void Load()
+        {
+            // Load & update all the settings classes on compile/launch
+            foreach (var rootType in CustomSettingsTypeCache.SettingsRootTypes)
+            {
+                GetOrCreateSettings(rootType);
+            }
+        }
+
         internal static CustomSettingsRoot GetOrCreateSettings(Type rootType)
         {
             var descriptor = CustomSettingsTypeCache.GetDescriptor(rootType);
