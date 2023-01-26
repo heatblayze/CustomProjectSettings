@@ -2,7 +2,7 @@
   "name": "com.heatblayze.customprojectsettings",
   "displayName": "Custom Project Settings",
   "description": "Allows developers to create their own, easily accessible, project settings.",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "unity": "2019.1",
   "license": "MIT",
   "repository": {
